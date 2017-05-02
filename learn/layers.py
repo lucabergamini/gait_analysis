@@ -18,5 +18,5 @@ class MyLayer(Layer):
         return x[:,-self.size:]
 
     def compute_output_shape(self, input_shape):
-        input_shape[1] = self.size
-        return input_shape
+        output_shape = (None,self.size,input_shape[2])
+        return output_shape

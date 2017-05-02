@@ -92,3 +92,4 @@ ENV/
 .idea/
 data/
 processed/
+models/
