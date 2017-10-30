@@ -18,7 +18,7 @@ numpy.random.seed(10)
 sys.setrecursionlimit(40000)
 
 # carico dati
-BASE_FOLDER = "../processed_2/"
+BASE_FOLDER = "../processed/fourier/"
 TRAIN_FOLDER_OUT = "train/"
 TEST_FOLDER_OUT = "test/"
 # train
@@ -43,10 +43,11 @@ for f in l_train:
 # adesso so il numero
 data_train = data_train[0:index].copy()
 data_train[numpy.isnan(data_train)] = 0
-print numpy.any(numpy.isnan(data_train))
 labels_classes_train = numpy.load(BASE_FOLDER + TRAIN_FOLDER_OUT + "labels_classes.npy")
 labels_patient_train = numpy.load(BASE_FOLDER + TRAIN_FOLDER_OUT + "labels_patients.npy")
-print numpy.unique(labels_patient_train[labels_classes_train == 1])
+data_train = numpy.vstack((data_train,numpy.repeat(data_train[labels_classes_train == 0],1,axis=0)))
+labels_patient_train = numpy.hstack((labels_patient_train,numpy.repeat(labels_patient_train[labels_classes_train == 0],1)))
+labels_classes_train = numpy.hstack((labels_classes_train,numpy.repeat(labels_classes_train[labels_classes_train == 0],1)))
 # labels_classes_train = numpy.where(labels_classes_train == 3,2,labels_classes_train)
 
 # classe 0 aumentiamo
